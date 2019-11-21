@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studymore.ui.Activity.ActivityAdapter;
 import com.example.studymore.ui.Activity.ActivityDatabase;
+import com.example.studymore.ui.Quiz.QuizResult;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,10 +21,15 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
 
+    //to create score recording
+    public static ArrayList<QuizResult> quizResultArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        quizResultArrayList = new ArrayList<QuizResult>();
 
         //set the settings button
         settingsButton = findViewById(R.id.settingsClog);

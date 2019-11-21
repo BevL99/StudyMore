@@ -3,15 +3,22 @@ package com.example.studymore;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.studymore.ui.Quiz.Question;
 import com.example.studymore.ui.Quiz.QuestionDatabase;
+import com.example.studymore.ui.Quiz.QuizResult;
+import com.google.android.material.snackbar.Snackbar;
+
+import static com.example.studymore.MainActivity.quizResultArrayList;
 
 public class QuizActivity extends AppCompatActivity {
 
@@ -28,7 +35,6 @@ public class QuizActivity extends AppCompatActivity {
     Button checkAnswerBtn;
     Button nextQuestionBtn;
 
-
     ConstraintLayout endLayout;
     TextView endScore;
     Button saveScoreBtn;
@@ -40,6 +46,10 @@ public class QuizActivity extends AppCompatActivity {
 
     String selectedResult;
     TextView result;
+
+    private QuizResult quizResult;
+
+    Intent intent;
 
 
 
@@ -86,6 +96,7 @@ public class QuizActivity extends AppCompatActivity {
             selectedResult = radioButton.getText().toString();
 
             questionAnsweredLayout.setVisibility(View.VISIBLE);
+            checkAnswerBtn.setVisibility(View.INVISIBLE);
 
             if(selectedResult==questionData.getAnswer()){
                 result.setText("Correct");
@@ -108,12 +119,27 @@ public class QuizActivity extends AppCompatActivity {
                 if(i<10){
                     setQuestion();
                     questionAnsweredLayout.setVisibility(View.INVISIBLE);
+                    checkAnswerBtn.setVisibility(View.VISIBLE);
                 }
                 else{
                     endLayout.setVisibility(View.VISIBLE);
                     questionLayout.setVisibility(View.INVISIBLE);
                     endScore.setText(Integer.toString(score)+"/10");
                 }
+            }
+        });
+
+        saveScoreBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Context context = v.getContext();
+                int attemptNumber = quizResultArrayList.size()+1;
+
+                quizResult = new QuizResult(attemptNumber,score);
+                quizResultArrayList.add(quizResult);
+
+                Snackbar.make(getWindow().getDecorView().getRootView(),
+                        "Score Saved", Snackbar.LENGTH_SHORT).show();
             }
         });
     }

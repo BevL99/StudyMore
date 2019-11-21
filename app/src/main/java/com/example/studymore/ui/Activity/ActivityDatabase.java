@@ -46,15 +46,18 @@ public class ActivityDatabase {
                 R.drawable.quiz
         ));
 
+
         activities.put(5, new Activity(
+                "Quiz Scores",
+                R.drawable.scores
+        ));
+
+        activities.put(6, new Activity(
                 "Videos",
                 R.drawable.vids
         ));
 
-        activities.put(6, new Activity(
-                "Quiz Scores",
-                R.drawable.scores
-        ));
+
 
     }
 }
